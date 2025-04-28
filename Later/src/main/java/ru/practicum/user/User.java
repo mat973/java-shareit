@@ -1,5 +1,4 @@
 package ru.practicum.user;
-
 import lombok.Data;
 
 @Data

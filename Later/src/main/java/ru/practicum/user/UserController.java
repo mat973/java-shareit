@@ -22,4 +22,20 @@ public class UserController {
     public User saveNewUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
+
+    @GetMapping("/{userId}")
+    public User getUserById(@PathVariable Long userId){
+        return userService.geUserById(userId);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUserById(@PathVariable Long userId){
+        userService.deleteUserById(userId);
+    }
+
+    @PutMapping
+    public User updateUser(User user){
+        userService.updateUser(user);
+    }
+
 }
