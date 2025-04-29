@@ -39,4 +39,9 @@ public class UserRepositoryImpl implements UserRepository{
     public User getUserById(Long userId) {
         return users.get(userId);
     }
+
+    @Override
+    public boolean containUserById(Long userid) {
+        return users.containsKey(userid);
+    }
 }

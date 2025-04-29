@@ -8,4 +8,5 @@ interface UserRepository {
     User updateUser(User user);
     void deleteUser(Long userId);
     User getUserById(Long userId);
+    boolean containUserById(Long userid);
 }
