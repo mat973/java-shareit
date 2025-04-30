@@ -22,6 +22,12 @@ public class ItemController {
         return itemService.addNewItem(userId, item);
     }
 
+    @PatchMapping("/{itemId}")
+    public Item update(@RequestHeader("X-Later-User-Id") Long userId,
+    @RequestBody Item item, @PathVariable Long itemId){
+        return itemService.updateItem();
+    }
+
     @DeleteMapping("/{itemId}")
     public void deleteItem(@RequestHeader("X-Later-User-Id") long userId,
                            @PathVariable(name="itemId") long itemId) {

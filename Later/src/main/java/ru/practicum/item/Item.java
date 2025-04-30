@@ -6,5 +6,6 @@ import lombok.Data;
 class Item {
     private Long id;
     private Long userId;
-    private String url;
+    private String name;
+    private String description;
 }

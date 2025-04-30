@@ -36,6 +36,7 @@ public class UserController {
     @PutMapping
     public User updateUser(User user){
         userService.updateUser(user);
+        return user;
     }
 
 }
