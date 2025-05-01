@@ -2,8 +2,8 @@ package ru.practicum.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.exception.NotUnicEmailException;
 import ru.practicum.exception.UserNotFoundException;
-
 
 import java.util.List;
 
@@ -13,35 +13,39 @@ class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
-    public List<User> getAllUsers() {
-        return repository.findAll();
+    public List<UserDto> getAllUsers() {
+        return repository.findAll().stream().map(UserMapper::toUserDto).toList();
     }
 
     @Override
-    public User saveUser(User user) {
-        return repository.save(user);
+    public UserDto saveUser(UserDto userDto) {
+        checkUnicEmail(userDto.getEmail());
+        return UserMapper.toUserDto(repository.save(UserMapper.toUser(userDto)));
     }
 
     @Override
-    public User updateUser(User user) {
-        if (!repository.containUserById(user.getId())){
-            throw  new UserNotFoundException(user.getId());
+    public UserDto updateUser(UserDto userDto) {
+        if (!repository.containUserById(userDto.getId())) {
+            throw new UserNotFoundException(userDto.getId());
         }
-        return repository.updateUser(user);
+        if (userDto.getEmail() != null) {
+            checkUnicEmail(userDto.getEmail());
+        }
+        return UserMapper.toUserDto(repository.updateUser(UserMapper.toUser(userDto)));
     }
 
     @Override
-    public User getUserById(Long userId) {
-        if (!repository.containUserById(userId)){
-            throw  new UserNotFoundException(userId);
+    public UserDto getUserById(Long userId) {
+        if (!repository.containUserById(userId)) {
+            throw new UserNotFoundException(userId);
         }
-        return repository.getUserById(userId);
+        return UserMapper.toUserDto(repository.getUserById(userId));
     }
 
     @Override
     public void deleteUserById(Long userId) {
-        if (!repository.containUserById(userId)){
-            throw  new UserNotFoundException(userId);
+        if (!repository.containUserById(userId)) {
+            throw new UserNotFoundException(userId);
         }
         repository.deleteUser(userId);
 
@@ -50,5 +54,11 @@ class UserServiceImpl implements UserService {
     @Override
     public boolean existUserById(Long userId) {
         return repository.containUserById(userId);
+    }
+
+    public void checkUnicEmail(String email) {
+        if (repository.findAll().stream().map(user -> user.getEmail()).anyMatch(em -> em.equals(email))) {
+            throw new NotUnicEmailException("email " + email + " уже занять другим пользователем");
+        }
     }
 }

@@ -1,15 +1,15 @@
 package ru.practicum.user;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserRepositoryImpl implements UserRepository{
-    private static final Map<Long, User> users =  new HashMap<>();
-    private static Long currentId;
-
-
+@Repository
+public class UserRepositoryImpl implements UserRepository {
+    private static final Map<Long, User> users = new HashMap<>();
+    private static Long currentId = 0L;
 
 
     @Override
@@ -26,8 +26,14 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public User updateUser(User user) {
-        users.put(user.getId(), user);
-        return user;
+        User newUser = users.get(user.getId());
+        if (user.getName() != null) {
+            newUser.setName(user.getName());
+        }
+        if (user.getEmail() != null) {
+            newUser.setEmail(user.getEmail());
+        }
+        return newUser;
     }
 
     @Override
