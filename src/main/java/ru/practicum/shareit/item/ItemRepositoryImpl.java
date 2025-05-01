@@ -42,7 +42,7 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Item update(Item item) {
         Item newItem = items.get(item.getId());
-        if (newItem.getUserId().equals(item.getUserId())) {
+        if (!newItem.getUserId().equals(item.getUserId())) {
             throw new PermitionDenidedException("Только владлен вещи может ее изменять");
         }
         if (item.getAvailable() != null) {
