@@ -3,14 +3,13 @@ package ru.practicum.shareit.user;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.user.model.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     private static final Map<Long, User> users = new HashMap<>();
     private static Long currentId = 0L;
+    private static final Set<String> emails = new HashSet<>();
 
 
     @Override
@@ -22,6 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User save(User user) {
         user.setId(++currentId);
         users.put(currentId, user);
+        emails.add(user.getEmail());
         return user;
     }
 
@@ -32,6 +32,8 @@ public class UserRepositoryImpl implements UserRepository {
             newUser.setName(user.getName());
         }
         if (user.getEmail() != null) {
+            emails.remove(newUser.getEmail());
+            emails.add(user.getEmail());
             newUser.setEmail(user.getEmail());
         }
         return newUser;
@@ -51,4 +53,11 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean containUserById(Long userid) {
         return users.containsKey(userid);
     }
+
+    @Override
+    public boolean checkUnicEmail(String email) {
+        return emails.contains(email);
+    }
+
+
 }

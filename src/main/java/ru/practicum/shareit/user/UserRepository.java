@@ -16,4 +16,6 @@ interface UserRepository {
     User getUserById(Long userId);
 
     boolean containUserById(Long userid);
+
+    boolean checkUnicEmail(String email);
 }

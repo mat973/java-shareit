@@ -59,8 +59,8 @@ class UserServiceImpl implements UserService {
         return repository.containUserById(userId);
     }
 
-    public void checkUnicEmail(String email) {
-        if (repository.findAll().stream().map(User::getEmail).anyMatch(em -> em.equals(email))) {
+    private void checkUnicEmail(String email) {
+        if (repository.checkUnicEmail(email)) {
             throw new NotUnicEmailException("email " + email + " уже занять другим пользователем");
         }
     }
