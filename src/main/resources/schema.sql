@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS bookings (
    start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     item_id BIGINT REFERENCES items (id),
-    booker_id BIGINT users (id),
+    booker_id BIGINT  REFERENCES users (id),
     status VARCHAR(50) NOT NULL
 );
 

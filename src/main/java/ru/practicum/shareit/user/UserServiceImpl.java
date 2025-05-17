@@ -27,39 +27,39 @@ class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
-        if (!repository.containUserById(userDto.getId())) {
+        if (!repository.existById(userDto.getId())) {
             throw new UserNotFoundException(userDto.getId());
         }
         if (userDto.getEmail() != null) {
             checkUnicEmail(userDto.getEmail());
         }
-        return UserMapper.toUserDto(repository.updateUser(UserMapper.toUser(userDto)));
+        return UserMapper.toUserDto(repository.save(UserMapper.toUser(userDto)));
     }
 
     @Override
     public UserDto getUserById(Long userId) {
-        if (!repository.containUserById(userId)) {
+        if (!repository.existById(userId)) {
             throw new UserNotFoundException(userId);
         }
-        return UserMapper.toUserDto(repository.getUserById(userId));
+        return UserMapper.toUserDto(repository.getById(userId));
     }
 
     @Override
     public void deleteUserById(Long userId) {
-        if (!repository.containUserById(userId)) {
+        if (!repository.existById(userId)) {
             throw new UserNotFoundException(userId);
         }
-        repository.deleteUser(userId);
+        repository.deleteById(userId);
 
     }
 
     @Override
     public boolean existUserById(Long userId) {
-        return repository.containUserById(userId);
+        return repository.existById(userId);
     }
 
     private void checkUnicEmail(String email) {
-        if (repository.checkUnicEmail(email)) {
+        if (repository.existByEmail(email)) {
             throw new NotUnicEmailException("email " + email + " уже занять другим пользователем");
         }
     }
