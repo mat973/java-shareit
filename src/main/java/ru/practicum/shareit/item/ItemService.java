@@ -2,8 +2,10 @@ package ru.practicum.shareit.item;
 
 
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemService {
     List<ItemDto> getItems(long userId);
@@ -17,4 +19,8 @@ public interface ItemService {
     ItemDto getItem(long itemId);
 
     List<ItemDto> getItemsByDescription(String text);
+
+    boolean existItemById(Long itemId);
+
+    Optional<Item> getClearIem(Long itemId);
 }

@@ -1,12 +1,13 @@
 package ru.practicum.shareit.user.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -16,4 +17,6 @@ public class User {
     private String email;
     @Column(name = "name", nullable = false)
     private String name;
+
+
 }
