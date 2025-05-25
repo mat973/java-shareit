@@ -64,8 +64,8 @@ public class ItemServiceImpl implements ItemService {
     public ItemDto updateItem(ItemDto itemDto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
-        Item updateItem = itemRepository.findById(itemDto.getId()).
-                orElseThrow(() -> new ItemNotFoundException(itemDto.getId()));
+        Item updateItem = itemRepository.findById(itemDto.getId())
+                .orElseThrow(() -> new ItemNotFoundException(itemDto.getId()));
         if (itemDto.getAvailable() != null) {
             updateItem.setAvailable(itemDto.getAvailable());
         }
