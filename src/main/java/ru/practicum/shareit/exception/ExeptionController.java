@@ -54,19 +54,25 @@ public class ExeptionController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionDto startDateIsBeforeNowExceptionHandler(DateInvalidException e){
+    public ExceptionDto startDateIsBeforeNowExceptionHandler(DateInvalidException e) {
         return new ExceptionDto(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionDto itemNotAvailableExceptionHandler(ItemNotAvailableException e){
+    public ExceptionDto itemNotAvailableExceptionHandler(ItemNotAvailableException e) {
         return new ExceptionDto(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionDto bookingNotFoundException(BookingNotFoundException e){
+    public ExceptionDto bookingNotFoundException(BookingNotFoundException e) {
+        return new ExceptionDto(e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDto commentFailExceptionHandler(CommentFailException e) {
         return new ExceptionDto(e.getMessage());
     }
 

@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.validinterface.Create;
-
 
 import java.util.List;
 
@@ -50,12 +49,20 @@ public class ItemController {
     public ItemDto getItem(@RequestHeader("X-Sharer-User-Id") long userId,
                            @PathVariable(name = "itemId") long itemId) {
         log.info("Получение вещи с id {} пользователем с id {}", itemId, userId);
-        return itemService.getItem(itemId);
+        return itemService.getItem(itemId, userId);
     }
 
     @GetMapping("/search")
     public List<ItemDto> getItemsByDescription(@RequestParam String text) {
         log.info("Поиск вещи по описанию text {}", text);
         return itemService.getItemsByDescription(text);
+    }
+
+    @PostMapping("/{itemId}/comment")
+    public CommentDto createComment(@Validated @RequestBody CommentDto commentDto,
+                                    @RequestHeader("X-Sharer-User-Id") long userId,
+                                    @PathVariable Long itemId) {
+        log.info("Запрос на создание комментария {} пользователем с Id {} для вещи {}", commentDto, userId, itemId);
+        return itemService.createComment(commentDto, userId, itemId);
     }
 }

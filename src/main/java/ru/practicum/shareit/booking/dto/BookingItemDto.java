@@ -11,7 +11,7 @@ public class BookingItemDto {
     private String name;
 
 
-    public static BookingItemDto createBookingItemDto(Item item){
+    public static BookingItemDto createBookingItemDto(Item item) {
         return new BookingItemDto(item.getId(), item.getName());
     }
 }

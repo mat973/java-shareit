@@ -9,7 +9,7 @@ import ru.practicum.shareit.user.model.User;
 public class BookingUserDto {
     private Long id;
 
-    public static BookingUserDto createBookingUserDto(User user){
+    public static BookingUserDto createBookingUserDto(User user) {
         return new BookingUserDto(user.getId());
     }
 }

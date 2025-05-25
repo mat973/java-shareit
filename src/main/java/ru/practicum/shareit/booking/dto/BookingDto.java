@@ -1,18 +1,13 @@
 package ru.practicum.shareit.booking.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Data;
-import jakarta.validation.constraints.Pattern;
-import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.shareit.booking.model.Status;
 
-import java.time.LocalDateTime;
 
-/**
- * TODO Sprint add-bookings.
- */
 @Data
 @Builder
 public class BookingDto {

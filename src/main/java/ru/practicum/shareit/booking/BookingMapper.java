@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 public class BookingMapper {
 
-    static Booking mapToBooking(BookingDto bookingDto, User owner, Item item){
+    static Booking mapToBooking(BookingDto bookingDto, User owner, Item item) {
         return Booking.builder()
                 .id(bookingDto.getId())
                 .booker(owner)
@@ -23,7 +23,7 @@ public class BookingMapper {
                 .build();
     }
 
-    static ResponseBookingDto mapResponseToBookingDto(Booking booking){
+    static ResponseBookingDto mapResponseToBookingDto(Booking booking) {
         return ResponseBookingDto.builder()
                 .id(booking.getId())
                 .booker(BookingUserDto.createBookingUserDto(booking.getBooker()))
@@ -33,7 +33,6 @@ public class BookingMapper {
                 .status(booking.getStatus())
                 .build();
     }
-
 
 
 //    private static LocalDateTime parseStringToDate(String date){

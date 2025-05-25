@@ -2,7 +2,6 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import ru.practicum.shareit.exception.NotUnicEmailException;
 import ru.practicum.shareit.exception.UserNotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
@@ -31,7 +30,7 @@ class UserServiceImpl implements UserService {
     public UserDto updateUser(UserDto userDto) {
         User updateUser = repository.findById(userDto.getId()).orElseThrow(() ->
                 new UserNotFoundException(userDto.getId()));
-        if (userDto.getName() != null){
+        if (userDto.getName() != null) {
             updateUser.setName(userDto.getName());
         }
         if (userDto.getEmail() != null) {
