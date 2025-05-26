@@ -10,10 +10,6 @@ import ru.practicum.shareit.booking.model.State;
 
 import java.util.List;
 
-
-/**
- * TODO Sprint add-bookings.
- */
 @RestController
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor

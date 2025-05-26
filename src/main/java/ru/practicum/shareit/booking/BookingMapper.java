@@ -34,8 +34,4 @@ public class BookingMapper {
                 .build();
     }
 
-
-//    private static LocalDateTime parseStringToDate(String date){
-//
-//    }
 }

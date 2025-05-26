@@ -16,8 +16,11 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsById(Long itemId);
 
 
-    @Query(" select i from Item i " +
-            "where i.available = TRUE AND upper(i.name) like upper(concat('%', ?1, '%')) " +
-            " or upper(i.description) like upper(concat('%', ?1, '%'))")
+    @Query("""
+            SELECT i FROM Item i
+            WHERE i.available = TRUE
+            AND (upper(i.name) LIKE upper(concat('%', :text, '%'))
+            OR (upper(i.description) LIKE upper(concat('%', :text, '%')))
+            """)
     List<Item> getItemsByDescription(String text);
 }

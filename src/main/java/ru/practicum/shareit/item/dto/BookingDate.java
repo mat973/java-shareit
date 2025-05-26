@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class BookingDate {
-    LocalDateTime start;
-    LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public BookingDate(LocalDateTime start, LocalDateTime end) {
         this.start = start;

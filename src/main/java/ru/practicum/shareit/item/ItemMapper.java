@@ -55,8 +55,8 @@ public class ItemMapper {
                 .description(item.getDescription())
                 .available(item.getAvailable())
                 .comments(commentDtos)
-                .lastBooking((last != null) ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
-                .nextBooking((next != null) ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
+                .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
+                .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
                 .build();
     }
 
@@ -79,8 +79,8 @@ public class ItemMapper {
                     .name(item.getName())
                     .description(item.getDescription())
                     .available(item.getAvailable())
-                    .lastBooking((last != null) ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
-                    .nextBooking((next != null) ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
+                    .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
+                    .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
                     .build());
         }
         return itemDtoList;

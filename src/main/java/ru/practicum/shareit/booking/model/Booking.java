@@ -1,22 +1,18 @@
 package ru.practicum.shareit.booking.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-/**
- * TODO Sprint add-bookings.
- */
 @Entity
 @Table(name = "bookings")
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
@@ -27,7 +23,7 @@ public class Booking {
     private LocalDateTime startDate;
     @Column(name = "end_date")
     private LocalDateTime endDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
     @ManyToOne
@@ -35,4 +31,18 @@ public class Booking {
     private User booker;
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        if (booking.getId() == null || id == null) return false;
+        return Objects.equals(id, booking.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
