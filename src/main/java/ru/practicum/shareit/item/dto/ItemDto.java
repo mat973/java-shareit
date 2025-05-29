@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import ru.practicum.shareit.validinterface.Create;
 
+import java.util.List;
+
 
 @Data
 @Builder
@@ -17,4 +19,7 @@ public class ItemDto {
     private String description;
     @NotNull(groups = Create.class, message = "Достуность не может быть пустым")
     private Boolean available;
+    private BookingDate lastBooking;
+    private BookingDate nextBooking;
+    private List<CommentDto> comments;
 }

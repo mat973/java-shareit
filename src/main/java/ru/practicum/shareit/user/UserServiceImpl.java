@@ -2,12 +2,13 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import ru.practicum.shareit.exception.NotUnicEmailException;
 import ru.practicum.shareit.exception.UserNotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,39 +28,47 @@ class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
-        if (!repository.containUserById(userDto.getId())) {
-            throw new UserNotFoundException(userDto.getId());
+        User updateUser = repository.findById(userDto.getId()).orElseThrow(() ->
+                new UserNotFoundException(userDto.getId()));
+        if (userDto.getName() != null) {
+            updateUser.setName(userDto.getName());
         }
         if (userDto.getEmail() != null) {
             checkUnicEmail(userDto.getEmail());
+            updateUser.setEmail(userDto.getEmail());
         }
-        return UserMapper.toUserDto(repository.updateUser(UserMapper.toUser(userDto)));
+        return UserMapper.toUserDto(repository.save(updateUser));
     }
 
     @Override
     public UserDto getUserById(Long userId) {
-        if (!repository.containUserById(userId)) {
+        if (!repository.existsById(userId)) {
             throw new UserNotFoundException(userId);
         }
-        return UserMapper.toUserDto(repository.getUserById(userId));
+        return UserMapper.toUserDto(repository.getById(userId));
     }
 
     @Override
     public void deleteUserById(Long userId) {
-        if (!repository.containUserById(userId)) {
+        if (!repository.existsById(userId)) {
             throw new UserNotFoundException(userId);
         }
-        repository.deleteUser(userId);
+        repository.deleteById(userId);
 
     }
 
     @Override
     public boolean existUserById(Long userId) {
-        return repository.containUserById(userId);
+        return repository.existsById(userId);
+    }
+
+    @Override
+    public Optional<User> getClearUser(Long userId) {
+        return repository.findById(userId);
     }
 
     private void checkUnicEmail(String email) {
-        if (repository.checkUnicEmail(email)) {
+        if (repository.existsByEmail(email)) {
             throw new NotUnicEmailException("email " + email + " уже занять другим пользователем");
         }
     }
