@@ -15,6 +15,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     boolean existsById(Long itemId);
 
+    List<Item> findByItemRequest_IdIn(List<Long> ids);
 
     @Query("""
     SELECT i FROM Item i

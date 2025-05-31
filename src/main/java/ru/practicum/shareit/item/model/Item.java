@@ -2,6 +2,7 @@ package ru.practicum.shareit.item.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.Objects;
@@ -26,6 +27,9 @@ public class Item {
     private String description;
     @Column(name = "is_available")
     private Boolean available;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id")
+    ItemRequest itemRequest;
 
     @Override
     public boolean equals(Object o) {

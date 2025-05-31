@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemRequestController {
     private final RequestService requestService;
     @PostMapping
-    public ItemRequestDto createRequest(@Validated ItemRequestDto requestDto,
+    public ItemRequestDto createRequest(@Validated @RequestBody ItemRequestDto requestDto,
                                         @RequestHeader("X-Sharer-User-Id") long userId){
         log.info("Запрос на создани запроса с парамтром {} пользоваетелм с id {}", requestDto, userId);
         return requestService.createRequest(userId, requestDto) ;

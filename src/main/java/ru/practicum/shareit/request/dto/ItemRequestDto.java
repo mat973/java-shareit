@@ -1,18 +1,22 @@
 package ru.practicum.shareit.request.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import ru.practicum.shareit.user.dto.UserDto;
+import lombok.*;
+
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemRequestDto {
     private Long id;
-    @NotEmpty(message = "Опсиание не можт быть путсым")
+    @NotBlank(message = "Опсиание не можт быть путсым")
     private String description;
-    private UserDto userDto;
-
+    private Long requesterId;
+    private LocalDateTime created;
 }

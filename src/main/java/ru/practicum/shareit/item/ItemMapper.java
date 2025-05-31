@@ -7,6 +7,7 @@ import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class ItemMapper {
                 .description(itemDto.getDescription())
                 .name(itemDto.getName())
                 .available(itemDto.getAvailable())
+                .itemRequest(itemDto.getItemRequest())
                 .build();
     }
 
@@ -34,10 +36,12 @@ public class ItemMapper {
                 .name(item.getName())
                 .description(item.getDescription())
                 .available(item.getAvailable())
+                .itemRequest(item.getItemRequest())
                 .build();
     }
 
-    public static ItemDto toItemDtoWithComment(Item item, List<Comment> comments, List<Booking> bookings) {
+    public static ItemDto toItemDtoWithComment(Item item, List<Comment> comments,
+                                               List<Booking> bookings) {
         Booking last = bookings.stream()
                 .filter(b -> b.getStartDate().isBefore(LocalDateTime.now()))
                 .max(Comparator.comparing(Booking::getEndDate))
@@ -57,10 +61,13 @@ public class ItemMapper {
                 .comments(commentDtos)
                 .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
                 .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
+                .itemRequest(item.getItemRequest())
                 .build();
     }
 
-    public static List<ItemDto> toItemsDtoWithDate(List<Item> items, Map<Long, List<Booking>> bookingsByItem) {
+    public static List<ItemDto> toItemsDtoWithDate(List<Item> items,
+                                                   Map<Long,
+                                                           List<Booking>> bookingsByItem) {
         List<ItemDto> itemDtoList = new ArrayList<>();
         for (Item item : items) {
             List<Booking> bookings = bookingsByItem.getOrDefault(item.getId(), List.of());
@@ -81,6 +88,7 @@ public class ItemMapper {
                     .available(item.getAvailable())
                     .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
                     .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
+                    .itemRequest(item.getItemRequest())
                     .build());
         }
         return itemDtoList;
