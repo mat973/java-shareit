@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemMapper {
-    public static Item toItem(ItemDto itemDto, Long userId) {
+    public static Item toItem(ItemDto itemDto, Long userId, ItemRequest itemRequest) {
         return Item.builder()
                 .id(itemDto.getId())
                 .owner(User.builder()
@@ -26,7 +26,7 @@ public class ItemMapper {
                 .description(itemDto.getDescription())
                 .name(itemDto.getName())
                 .available(itemDto.getAvailable())
-                .itemRequest(itemDto.getItemRequest())
+                .itemRequest(itemRequest)
                 .build();
     }
 
@@ -36,7 +36,7 @@ public class ItemMapper {
                 .name(item.getName())
                 .description(item.getDescription())
                 .available(item.getAvailable())
-                .itemRequest(item.getItemRequest())
+                .requestId(item.getItemRequest() == null ? null : item.getItemRequest().getId())
                 .build();
     }
 
@@ -61,7 +61,7 @@ public class ItemMapper {
                 .comments(commentDtos)
                 .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
                 .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
-                .itemRequest(item.getItemRequest())
+                .requestId(item.getItemRequest() == null ? null : item.getItemRequest().getId())
                 .build();
     }
 
@@ -88,9 +88,10 @@ public class ItemMapper {
                     .available(item.getAvailable())
                     .lastBooking(last != null ? new BookingDate(last.getStartDate(), last.getEndDate()) : null)
                     .nextBooking(next != null ? new BookingDate(next.getStartDate(), next.getEndDate()) : null)
-                    .itemRequest(item.getItemRequest())
+                    .requestId(item.getItemRequest() == null ? null : item.getItemRequest().getId())
                     .build());
         }
         return itemDtoList;
     }
 }
+

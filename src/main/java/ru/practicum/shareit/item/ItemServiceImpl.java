@@ -55,11 +55,12 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = false)
     public ItemDto addNewItem(Long userId, ItemDto itemDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-        if (itemDto.getItemRequest() != null){
-            itemDto.setItemRequest(requestRepository.findById(itemDto.getItemRequest()
-                    .getId()).orElseThrow(() -> new ItemRequestNotFoundException(itemDto.getItemRequest().getId())));
+        ItemRequest itemRequest = null;
+        if (itemDto.getRequestId() != null){
+            itemRequest = (requestRepository.findById(itemDto.getRequestId()
+            ).orElseThrow(() -> new ItemRequestNotFoundException(itemDto.getRequestId())));
         }
-        return toItemDto(itemRepository.save(ItemMapper.toItem(itemDto, userId)));
+        return toItemDto(itemRepository.save(ItemMapper.toItem(itemDto, userId, itemRequest)));
     }
 
 
