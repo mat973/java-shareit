@@ -15,28 +15,29 @@ import java.util.List;
 @Slf4j
 public class ItemRequestController {
     private final RequestService requestService;
+
     @PostMapping
     public ItemRequestDto createRequest(@Validated @RequestBody ItemRequestDto requestDto,
-                                        @RequestHeader("X-Sharer-User-Id") long userId){
+                                        @RequestHeader("X-Sharer-User-Id") long userId) {
         log.info("Запрос на создани запроса с парамтром {} пользоваетелм с id {}", requestDto, userId);
-        return requestService.createRequest(userId, requestDto) ;
+        return requestService.createRequest(userId, requestDto);
     }
 
     @GetMapping
-    public List<ItemRequestResponseDto> getUSerRequests(@RequestHeader("X-Sharer-User-Id") long userId){
+    public List<ItemRequestResponseDto> getUSerRequests(@RequestHeader("X-Sharer-User-Id") long userId) {
         log.info("Запрос на получение всех запросов пользоваетлям в id {}", userId);
         return requestService.getUsersRequests(userId);
     }
 
     @GetMapping("/all")
-    public List<ItemRequestResponseDto> getAllRequests(@RequestHeader("X-Sharer-User-Id") long userId){
+    public List<ItemRequestResponseDto> getAllRequests(@RequestHeader("X-Sharer-User-Id") long userId) {
         log.info("Запрос на получение всех запросов");
         return requestService.getAllRequests(userId);
     }
 
     @GetMapping("/{requestId}")
     public ItemRequestResponseDto getRequest(@RequestHeader("X-Sharer-User-Id") long userId,
-                                             @PathVariable Long requestId){
+                                             @PathVariable Long requestId) {
         log.info("Запрос на получни запроса с requestId {}, пользователем с id {}", requestId, userId);
         return requestService.getRequestById(userId, requestId);
     }
