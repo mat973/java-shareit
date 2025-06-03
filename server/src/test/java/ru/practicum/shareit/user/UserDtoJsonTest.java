@@ -10,13 +10,15 @@ import ru.practicum.shareit.user.dto.UserDto;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @JsonTest
-class UserDtoJsonTest {
+class UserDtoJsonTest
+{
 
     @Autowired
     private JacksonTester<UserDto> json;
 
     @Test
-    void testSerialize() throws Exception {
+    void testSerialize() throws Exception
+    {
         UserDto dto = UserDto.builder()
                 .id(1L)
                 .name("Alice")
@@ -35,7 +37,8 @@ class UserDtoJsonTest {
     }
 
     @Test
-    void testDeserialize() throws Exception {
+    void testDeserialize() throws Exception
+    {
         String jsonContent = """
                 {
                   "id": 2,
