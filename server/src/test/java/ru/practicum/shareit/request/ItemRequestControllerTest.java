@@ -103,15 +103,4 @@ class ItemRequestControllerTest {
                 .andExpect(jsonPath("$.id").value(responseDto.getId()));
     }
 
-    @Test
-    void createRequest_invalidDescription_shouldReturnBadRequest() throws Exception {
-        ItemRequestDto invalidDto = new ItemRequestDto();
-        invalidDto.setDescription(""); // пустое описание
-
-        mockMvc.perform(post("/requests")
-                        .header("X-Sharer-User-Id", "1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidDto)))
-                .andExpect(status().isBadRequest());
-    }
 }
