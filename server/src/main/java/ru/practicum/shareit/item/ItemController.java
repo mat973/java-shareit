@@ -25,7 +25,7 @@ public class ItemController {
 
     @PostMapping
     public ItemDto add(@RequestHeader("X-Sharer-User-Id") Long userId,
-                       @Validated(Create.class) @RequestBody ItemDto itemDto) {
+                        @Validated(Create.class) @RequestBody ItemDto itemDto) {
         log.info("Создание новой вещи {} пользователем {}", itemDto, userId);
         return itemService.addNewItem(userId, itemDto);
     }

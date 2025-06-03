@@ -57,14 +57,14 @@ public class RequesServiceImpl implements RequestService {
         List<Item> items = itemRepository.findAll();
         Map<Long, List<Item>> itemMap = items.stream()
                 .collect(Collectors.groupingBy(item -> item.getItemRequest().getId()));
-        return  itemRequests.stream().map(x -> mapToItemRequestResponseDto(x, itemMap.get(x.getId()))).toList();
+        return itemRequests.stream().map(x -> mapToItemRequestResponseDto(x, itemMap.get(x.getId()))).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public ItemRequestResponseDto getRequestById(long userId, Long requestId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-        ItemRequest itemRequest =requestRepository.findById(requestId)
+        ItemRequest itemRequest = requestRepository.findById(requestId)
                 .orElseThrow(() -> new ItemRequestNotFoundException(requestId));
         List<Item> items = itemRepository.findByItemRequest_IdIn(List.of(itemRequest.getId()));
 

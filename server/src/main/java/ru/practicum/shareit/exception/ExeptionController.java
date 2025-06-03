@@ -18,21 +18,21 @@ public class ExeptionController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDto itemNotFoundExceptionHandler(ItemNotFoundException e) {
-        log.error(" сообщение : {} ",  e.getMessage());
+        log.error(" сообщение : {} ", e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDto userNotFoundExceptionHandler(UserNotFoundException e) {
-        log.error(" сообщение : {} ",  e.getMessage());
+        log.error(" сообщение : {} ", e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionDto notUnicEmailExceptionHandler(NotUnicEmailException e) {
-        log.error(" сообщение : {} ",  e.getMessage());
+        log.error(" сообщение : {} ", e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
 
@@ -54,14 +54,14 @@ public class ExeptionController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionDto permitionDenidedExceptionHandler(PermitionDenidedException e) {
-        log.error(" сообщение : {} ",  e.getMessage());
+        log.error(" сообщение : {} ", e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDto startDateIsBeforeNowExceptionHandler(DateInvalidException e) {
-        log.error(" сообщение : {} ",  e.getMessage());
+        log.error(" сообщение : {} ", e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
 
@@ -88,7 +88,7 @@ public class ExeptionController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionDto itemRequestNotFoundExceptionHandler(ItemRequestNotFoundException e){
+    public ExceptionDto itemRequestNotFoundExceptionHandler(ItemRequestNotFoundException e) {
         log.error("Стек трейс : {}, сообщение : {} ", e.getStackTrace(), e.getMessage());
         return new ExceptionDto(e.getMessage());
     }
