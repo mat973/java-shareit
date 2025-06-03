@@ -18,13 +18,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByItemRequest_IdIn(List<Long> ids);
 
     @Query("""
-    SELECT i FROM Item i
-    WHERE i.available = TRUE
-    AND (
-        upper(i.name) LIKE upper(concat('%', :text, '%'))
-        OR upper(i.description) LIKE upper(concat('%', :text, '%'))
-    )
-    """)
+            SELECT i FROM Item i
+            WHERE i.available = TRUE
+            AND (
+                upper(i.name) LIKE upper(concat('%', :text, '%'))
+                OR upper(i.description) LIKE upper(concat('%', :text, '%'))
+            )
+            """)
     List<Item> getItemsByDescription(String text);
 
 }
