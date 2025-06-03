@@ -10,7 +10,7 @@ class StatusTest {
 
     @Test
     void testEnumValues() {
-        assertThat( Status.valueOf("WAITING")).isEqualTo(Status.WAITING);
+        assertThat(Status.valueOf("WAITING")).isEqualTo(Status.WAITING);
         assertThat(Status.values()).contains(Status.APPROVED, Status.REJECTED);
     }
 }
